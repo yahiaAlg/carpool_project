@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h1 class="text-center mb-4">About Us</h1>
+            <div class="card my-3">
+                <div class="card-body">
+                    <h2 class="card-title">Our Mission</h2>
+                    <p class="card-text">
+                        At Carpool, our mission is to provide a reliable and efficient carpooling service to help reduce the number of vehicles on the road, lower carbon emissions, and make commuting more affordable and enjoyable for everyone.
+                    </p>
+
+                    <h2 class="card-title mt-4">How It Works</h2>
+                    <p class="card-text">
+                        Our platform connects drivers and passengers looking to share rides. Drivers can post their trips, and passengers can search for available rides that match their routes. Once a match is found, passengers can book a seat and coordinate with the driver for a smooth journey.
+                    </p>
+
+                    <h2 class="card-title mt-4">Our Values</h2>
+                    <p class="card-text">
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-leaf text-success mr-2"></i> Sustainability: We are committed to reducing our environmental impact.</li>
+                            <li><i class="fas fa-users text-primary mr-2"></i> Community: Building a strong, supportive community of carpoolers.</li>
+                            <li><i class="fas fa-handshake text-warning mr-2"></i> Trust: Ensuring safety and reliability in every ride.</li>
+                            <li><i class="fas fa-wallet text-info mr-2"></i> Affordability: Making commuting cost-effective for everyone.</li>
+                        </ul>
+                    </p>
+
+                    <h2 class="card-title mt-4">Contact Us</h2>
+                    <p class="card-text">
+                        Have questions or need support? Feel free to reach out to us at <a href="mailto:support@carpool.com">support@carpool.com</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

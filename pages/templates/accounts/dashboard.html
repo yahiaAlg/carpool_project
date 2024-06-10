@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<main class="container">
+  <div class="page-title pt-6 px-5 d-none d-md-block">
+    <h1>Dashboard</h1>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- Admin Dashboard -->
+  {% if user.is_superuser %}
+  <div class="row mb-3">
+    <div class="col-12">
+      <h2>Admin Dashboard</h2>
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h5 class="card-title mb-0">All Trips</h5>
+        </div>
+        <div class="card-body">
+          <!-- Admin-specific content -->
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>From</th>
+                <th>To</th>
+                <th>Date</th>
+                <th>Driver</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for trip in trips %}
+              <tr>
+                <td>{{ trip.from_location }}</td>
+                <td>{{ trip.to_location }}</td>
+                <td>{{ trip.date }}</td>
+                <td>{{ trip.driver.name }}</td>
+                <td>{{ trip.status }}</td>
+                <td>
+                  <a href="{% url 'trip_details' trip.id %}" class="btn btn-info btn-sm">Details</a>
+                  <a href="{% url 'edit_trip' trip.id %}" class="btn btn-warning btn-sm">Edit</a>
+                  <a href="{% url 'cancel_trip' trip.id %}" class="btn btn-danger btn-sm">Cancel</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Driver Dashboard -->
+  {% if user.is_driver %}
+  <div class="row mb-3">
+    <div class="col-12">
+      <h2>Driver Dashboard</h2>
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h5 class="card-title mb-0">My Trips</h5>
+        </div>
+        <div class="card-body">
+          <!-- Driver-specific content -->
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>From</th>
+                <th>To</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for trip in trips %}
+              <tr>
+                <td>{{ trip.from_location }}</td>
+                <td>{{ trip.to_location }}</td>
+                <td>{{ trip.date }}</td>
+                <td>{{ trip.status }}</td>
+                <td>
+                  <a href="{% url 'trip_details' trip.id %}" class="btn btn-info btn-sm">Details</a>
+                  <a href="{% url 'finish_trip' trip.id %}" class="btn btn-success btn-sm">Finish</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Passenger Dashboard -->
+  {% if user.is_passenger %}
+  <div class="row mb-3">
+    <div class="col-12">
+      <h2>Passenger Dashboard</h2>
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h5 class="card-title mb-0">My Trips</h5>
+        </div>
+        <div class="card-body">
+          <!-- Passenger-specific content -->
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>From</th>
+                <th>To</th>
+                <th>Date</th>
+                <th>Driver</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for trip in trips %}
+              <tr>
+                <td>{{ trip.from_location }}</td>
+                <td>{{ trip.to_location }}</td>
+                <td>{{ trip.date }}</td>
+                <td>{{ trip.driver.name }}</td>
+                <td>{{ trip.status }}</td>
+                <td>
+                  <a href="{% url 'trip_details' trip.id %}" class="btn btn-info btn-sm">Details</a>
+                  <a href="{% url 'report_trip' trip.id %}" class="btn btn-danger btn-sm">Report</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Common Section for All Users -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <h2>Upcoming Trips</h2>
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h5 class="card-title mb-0">Next 5 Trips</h5>
+        </div>
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>From</th>
+                <th>To</th>
+                <th>Date</th>
+                <th>Driver</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for trip in upcoming_trips %}
+              <tr>
+                <td>{{ trip.from_location }}</td>
+                <td>{{ trip.to_location }}</td>
+                <td>{{ trip.date }}</td>
+                <td>{{ trip.driver.name }}</td>
+                <td>{{ trip.status }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}                

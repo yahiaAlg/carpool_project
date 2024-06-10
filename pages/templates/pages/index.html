@@ -1,0 +1,86 @@
+{% extends "base.html" %} 
+{% block title %} Home {% endblock title %} 
+{% block content %}
+<div class="jumbotron bg-primary text-white text-center py-5">
+  <div class="container">
+    <h1 class="display-4">Welcome to Carpool</h1>
+    <p class="lead">Find and share rides easily and efficiently.</p>
+    <a href="{% url 'register' %}" class="btn btn-light btn-lg mt-3">
+      Join Now <i class="fas fa-arrow-right"></i>
+    </a>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <i class="fas fa-car fa-3x mb-3 text-primary"></i>
+          <h5 class="card-title">Easy Rides</h5>
+          <p class="card-text">
+            Quickly find a ride with our easy-to-use interface.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <i class="fas fa-users fa-3x mb-3 text-primary"></i>
+          <h5 class="card-title">Community</h5>
+          <p class="card-text">
+            Connect with a community of verified drivers and passengers.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <i class="fas fa-shield-alt fa-3x mb-3 text-primary"></i>
+          <h5 class="card-title">Safety</h5>
+          <p class="card-text">
+            Your safety is our priority with verified profiles and ratings.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <h2 class="text-center mb-4">How It Works</h2>
+  <div class="row">
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <i class="fas fa-sign-in-alt fa-3x mb-3 text-primary"></i>
+          <h5 class="card-title">1. Sign Up</h5>
+          <p class="card-text">Create an account in a few simple steps.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <i class="fas fa-search fa-3x mb-3 text-primary"></i>
+          <h5 class="card-title">2. Search</h5>
+          <p class="card-text">
+            Find available rides that match your schedule.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <i class="fas fa-handshake fa-3x mb-3 text-primary"></i>
+          <h5 class="card-title">3. Connect</h5>
+          <p class="card-text">Book your ride and connect with the driver.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

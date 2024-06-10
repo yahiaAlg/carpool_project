@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% load static %}
+
+{% block title %}Trip Partners{% endblock %}
+
+{% block content %}
+<main>
+  <div class="container">
+    <div class="page-title pt-6 px-5 d-none d-md-block">
+      <h1>Trip Partners</h1>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+          <li class="breadcrumb-item">My trips</li>
+          <li class="breadcrumb-item active" aria-current="page">My partners</li>
+        </ol>
+      </nav>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-3 shadow-sm">
+          <div class="card-body">
+            <div class="trip-info text-center">
+              <h3 class="fw-bold text-capitalize">{{ trip.from_location }} - {{ trip.to_location }}</h3>
+              <h5 class="fw-semibold text-capitalize">By {{ trip.driver.name }}</h5>
+              <h6 class="fw-semibold text-capitalize">{{ trip.date }}</h6>
+            </div>
+          </div>
+          <div class="card-footer d-flex flex-column flex-md-row justify-content-around">
+            <a href="{% url 'edit_trip' trip.id %}" class="btn btn-primary w-sm-25 text-white px-4 py-1 mb-2">Edit</a>
+            <a href="{% url 'cancel_trip' trip.id %}" class="btn btn-danger w-sm-25 px-3 py-1 mb-2">Cancel</a>
+            <a href="{% url 'finish_trip' trip.id %}" class="btn btn-secondary w-sm-25 px-4 py-1 mb-2">Trip Finished</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Driver Card -->
+    <div class="row mb-3">
+      <div class="col-12">
+        <div class="card shadow-sm">
+          <div class="card-header">
+            <h5 class="card-title mb-0">Driver Information</h5>
+          </div>
+          <div class="card-body">
+            <p>Name: {{ trip.driver.name }}</p>
+            <p>Phone: {{ trip.driver.phone }}</p>
+            <p>Joined Date: {{ trip.driver.joined_date }}</p>
+            <p>Age: {{ trip.driver.age }}</p>
+            <p>Gender: {{ trip.driver.gender }}</p>
+            <p>Trips Posted: {{ trip.driver.trips_posted }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Passenger Cards -->
+    <div class="row mb-3">
+      <div class="col-12">
+        <div class="card shadow-sm">
+          <div class="card-header d-flex justify-content-between">
+            <h5 class="card-title mb-0">Passengers</h5>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPassengerModal">Add Passenger</button>
+          </div>
+          <div class="card-body">
+            {% for passenger in trip.passengers.all %}
+            <div class="card mb-3">
+              <div class="card-body">
+                <p>Name: {{ passenger.name }}</p>
+                <p>Phone: {{ passenger.phone }}</p>
+                <p>Gender: {{ passenger.gender }}</p>
+                <p>Age: {{ passenger.age }}</p>
+                <p>Trips Taken: {{ passenger.trips_taken }}</p>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Report Card -->
+    <div class="row mb-3">
+      <div class="col-12">
+        <div class="card shadow-sm">
+          <div class="card-header d-flex justify-content-between">
+            <h5 class="card-title mb-0">Report Trip</h5>
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#reportModal">Report</button>
+          </div>
+          <div class="card-body">
+            <p>If you encountered any issues during the trip, please report them.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- More details Card -->
+    <div class="row mb-3">
+      <div class="col-12">
+        <div class="card shadow-sm">
+          <div class="card-header d-flex justify-content-between">
+            <h5 class="card-title mb-0">More Information</h5>
+            <a href="{% url 'trip_details' trip.id %}" class="btn btn-info">More Info</a>
+          </div>
+          <div class="card-body">
+            <p>If you want to see more information about the trip.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Passenger Modal -->
+    <div class="modal fade" id="addPassengerModal" tabindex="-1" aria-labelledby="addPassengerModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addPassengerModalLabel">Add Passenger</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form method="post" action="{% url 'add_passenger' trip.id %}">
+              {% csrf_token %}
+              {% bootstrap_form passenger_form %}
+              <div class="d-flex justify-content-end">
+                {% bootstrap_button button_type="submit" content="Add" %}
+                {% bootstrap_button button_type="reset" content="Clear" class="ms-2" %}
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Report Modal -->
+    <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="reportModalLabel">Report Trip</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form method="post" action="{% url 'report_trip' trip.id %}">
+              {% csrf_token %}
+              {% bootstrap_form report_form %}
+              <div class="d-flex justify-content-end">
+                {% bootstrap_button button_type="submit" content="Report" %}
+                {% bootstrap_button button_type="reset" content="Clear" class="ms-2" %}
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
