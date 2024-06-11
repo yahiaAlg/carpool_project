@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h1>Driver Statistics for {{ driver.name }}</h1>
+  <ul class="list-group">
+    <li class="list-group-item">Total Trips: {{ total_trips }}</li>
+    <li class="list-group-item">Total Revenue: ${{ total_revenue }}</li>
+    <li class="list-group-item">Total Passengers Driven: {{ total_passengers }}</li>
+    <li class="list-group-item">Total Notifications: {{ total_notifications }}</li>
+  </ul>
+  <a href="{% url 'dashboard' %}" class="btn btn-primary mt-3">Back to Dashboard</a>
+</div>
+{% endblock %}
+

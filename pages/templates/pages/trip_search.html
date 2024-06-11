@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %} 
+
+{% block content %}
+<main>
+  <div class="container">
+    <div class="page-title pt-6 px-5 d-none d-md-block">
+      <h1>Find a Trip</h1>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Find a Trip</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <form method="post" class="mb-4">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="from_location">From:</label>
+                    <input type="text" class="form-control" id="from_location" name="from_location" placeholder="Enter starting location">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="to_location">To:</label>
+                    <input type="text" class="form-control" id="to_location" name="to_location" placeholder="Enter destination">
+                  </div>
+                </div>
+              </div>
+              <div class="d-grid my-2">
+                <button type="submit" class="btn btn-info">Search</button>
+              </div>
+            </form>
+
+            {% if trips %}
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>From</th>
+                  <th>To</th>
+                  <th>Date</th>
+                  <th>Available Seats</th>
+                  <th>Driver</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for trip in trips %}
+                <tr>
+                  <td>{{ trip.from_location }}</td>
+                  <td>{{ trip.to_location }}</td>
+                  <td>{{ trip.date }}</td>
+                  <td>{{ trip.available_seats }}</td>
+                  <td>{{ trip.driver.username }}</td> 
+                  <td>
+                    <a href="{% url 'send_trip_request' trip.id %}" class="btn btn-warning btn-sm">Request</a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            {% else %}
+            <p>No trips found. Please try another search.</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

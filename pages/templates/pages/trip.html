@@ -124,8 +124,9 @@
               {% csrf_token %}
               {% bootstrap_form passenger_form %}
               <div class="d-flex justify-content-end">
-                {% bootstrap_button button_type="submit" content="Add" %}
-                {% bootstrap_button button_type="reset" content="Clear" class="ms-2" %}
+                <input type="submit" value="Add" class="btn btn-success me-2">
+                <input type="reset" value="Clear" class="btn btn-danger">
+
               </div>
             </form>
           </div>

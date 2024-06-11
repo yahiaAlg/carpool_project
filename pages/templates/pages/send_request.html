@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% block title %}Send Trip Request{% endblock %}
+{% block content %}
+<div class="container-fluid send-request-page">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card shadow-sm my-5">
+                <div class="card-body p-4">
+                    <h1 class="text-center fw-bold mb-4">
+                        <i class="fas fa-paper-plane me-2"></i> Send Trip Request
+                    </h1>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            {% bootstrap_form form %}
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-paper-plane me-2"></i> Send Request
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
